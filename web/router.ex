@@ -7,6 +7,7 @@ defmodule TourGuide.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug TourGuide.Auth, repo: TourGuide.Repo
   end
 
   pipeline :api do
@@ -20,6 +21,8 @@ defmodule TourGuide.Router do
 
     get "/sign-up", UserController, :new
     post "/sign-up", UserController, :create
+
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.
