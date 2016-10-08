@@ -1,7 +1,7 @@
 defmodule TourGuide.TourGuide do
   use TourGuide.Web, :model
 
-  schema "tour_guide" do
+  schema "tour_guides" do
     field :about, :string
     belongs_to :user, TourGuide.User
     has_many :tours, TourGuide.Tour

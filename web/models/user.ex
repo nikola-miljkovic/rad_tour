@@ -7,6 +7,7 @@ defmodule TourGuide.User do
     field :email, :string
     field :password_hashed, :string
     has_one :tour_guide, TourGuide.TourGuide
+
     # virtuals
     field :password, :string, virtual: true
 
