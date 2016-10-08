@@ -1,0 +1,22 @@
+<h2>Listing Tour Guides</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>About</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for tour_guide <- @tour_guides do %>
+    <tr>
+      <td><%= tour_guide.user.first_name %></td>
+      <td><%= tour_guide.user.last_name %></td>
+      <td><%= tour_guide.user.email %></td>
+      <td><%= tour_guide.about %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
