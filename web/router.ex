@@ -23,6 +23,8 @@ defmodule TourGuide.Router do
     post "/sign-up", UserController, :create
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/guides", TourGuideController, only: [:index, :new, :create, :update]
+    get "/guides/edit", TourGuideController, :edit
   end
 
   # Other scopes may use custom stacks.
