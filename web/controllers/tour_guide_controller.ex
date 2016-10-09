@@ -5,7 +5,7 @@ defmodule TourGuide.TourGuideController do
   alias TourGuide.User
   alias TourGuide.TourGuide, as: TourGuideModel
 
-  plug :authenticate_user when action in [:new, :create, :edit, :update]
+  plug :authenticate_user when action in [:new, :create]
   plug :authenticate_tour_guide when action in [:edit, :update]
 
   def action(conn, _) do

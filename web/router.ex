@@ -25,6 +25,9 @@ defmodule TourGuide.Router do
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/guides", TourGuideController, only: [:index, :new, :create, :update]
     get "/guides/edit", TourGuideController, :edit
+
+    resources "/tour", TourController
+    resources "/tours", TourInstanceController
   end
 
   # Other scopes may use custom stacks.

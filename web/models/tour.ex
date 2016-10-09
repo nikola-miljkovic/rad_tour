@@ -16,7 +16,9 @@ defmodule TourGuide.Tour do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :rating])
-    |> validate_required([:title, :rating])
+    |> cast(params, [:title, :description, :category_id])
+    |> validate_required([:title])
+    |> validate_length(:title, min: 8, max: 32)
+    |> validate_length(:description, min: 64, max: 256)
   end
 end

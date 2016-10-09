@@ -1,0 +1,33 @@
+<h2>Show tour instance</h2>
+
+<ul>
+
+  <li>
+    <strong>Tour:</strong>
+    <%= @tour_instance.tour_id %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @tour_instance.time %>
+  </li>
+
+  <li>
+    <strong>Capacity:</strong>
+    <%= @tour_instance.capacity %>
+  </li>
+
+  <li>
+    <strong>Registred:</strong>
+    <%= @tour_instance.registred %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @tour_instance.status %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: tour_instance_path(@conn, :edit, @tour_instance) %>
+<%= link "Back", to: tour_instance_path(@conn, :index) %>

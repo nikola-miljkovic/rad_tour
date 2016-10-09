@@ -1,0 +1,34 @@
+<h2>Listing tour instances</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Tour</th>
+      <th>Time</th>
+      <th>Capacity</th>
+      <th>Registred</th>
+      <th>Status</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for tour_instance <- @tour_instances do %>
+    <tr>
+      <td><%= tour_instance.tour_id %></td>
+      <td><%= tour_instance.time %></td>
+      <td><%= tour_instance.capacity %></td>
+      <td><%= tour_instance.registred %></td>
+      <td><%= tour_instance.status %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: tour_instance_path(@conn, :show, tour_instance), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: tour_instance_path(@conn, :edit, tour_instance), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: tour_instance_path(@conn, :delete, tour_instance), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New tour instance", to: tour_instance_path(@conn, :new) %>
