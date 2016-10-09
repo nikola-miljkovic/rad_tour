@@ -1,5 +1,6 @@
 defmodule TourGuide.TourController do
   use TourGuide.Web, :controller
+
   import Services.Tour
 
   alias TourGuide.Tour
@@ -17,6 +18,12 @@ defmodule TourGuide.TourController do
     tours = tour_list(user.tour_guide)
 
     render(conn, "index.html", tours: tours)
+  end
+
+  def show(conn, %{"id" => id}, user) do
+    tour = get_tour(id)
+
+    render(conn, "show.html", tour: tour)
   end
 
   def new(conn, _params, _user) do

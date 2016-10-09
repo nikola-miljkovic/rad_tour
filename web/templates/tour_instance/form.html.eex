@@ -5,6 +5,8 @@
     </div>
   <% end %>
 
+  <%= hidden_input f, :tour_id %>
+
   <div class="form-group">
     <%= label f, :time, class: "control-label" %>
     <%= datetime_select f, :time, class: "form-control" %>

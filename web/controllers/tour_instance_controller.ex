@@ -1,18 +1,22 @@
 defmodule TourGuide.TourInstanceController do
   use TourGuide.Web, :controller
 
+  import Services.Tour, only: [get_tour: 1]
+  import Services.TourInstance
+
   alias TourGuide.TourInstance
 
   def index(conn, _params) do
-    tour_instances =
-      Repo.all(TourInstance)
-      |> Enum.map &(TourInstance.load_all_fields &1)
+    tour_instances = get_tour_instances()
 
     render(conn, "index.html", tour_instances: tour_instances)
   end
 
-  def new(conn, _params) do
-    changeset = TourInstance.changeset(%TourInstance{})
+  def new(conn, %{"id" => id}) do
+    changeset =
+      get_tour(id)
+      |> build_assoc(:tour_instances)
+      |> TourInstance.changeset()
 
     render(conn, "new.html", changeset: changeset)
   end
@@ -26,7 +30,7 @@ defmodule TourGuide.TourInstanceController do
         |> put_flash(:info, "Tour instance created successfully.")
         |> redirect(to: tour_instance_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, id: changeset.data.tour_id)
     end
   end
 
@@ -43,7 +47,7 @@ defmodule TourGuide.TourInstanceController do
 
   def update(conn, %{"id" => id, "tour_instance" => tour_instance_params}) do
     tour_instance = Repo.get!(TourInstance, id)
-    changeset = TourInstance.changeset(tour_instance, tour_instance_params)
+    changeset = TourInstance.update_changeset(tour_instance, tour_instance_params)
 
     case Repo.update(changeset) do
       {:ok, tour_instance} ->

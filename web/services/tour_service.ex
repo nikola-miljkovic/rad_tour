@@ -44,6 +44,7 @@ defmodule Services.Tour do
 
   def get_tour(id) do
     Repo.get(Tour, id)
+    |> Repo.preload([:category])
   end
 
   def load_categories() do

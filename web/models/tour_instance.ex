@@ -23,6 +23,8 @@ defmodule TourGuide.TourInstance do
   ]
 
   def load_all_fields(struct) do
+    IO.inspect struct
+
     struct
     |> Map.put(:status_string, Enum.at(@status_strings, struct.status))
   end
@@ -32,7 +34,12 @@ defmodule TourGuide.TourInstance do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:time, :capacity])
-    |> validate_required([:time, :capacity])
+    |> cast(params, [:time, :capacity, :tour_id])
+    |> validate_required([:time, :capacity, :tour_id])
+  end
+
+  def update_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:time, :capacity, :status])
   end
 end

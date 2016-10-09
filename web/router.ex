@@ -27,7 +27,9 @@ defmodule TourGuide.Router do
     get "/guides/edit", TourGuideController, :edit
 
     resources "/tour", TourController
-    resources "/tours", TourInstanceController
+
+    resources "/tours", TourInstanceController, except: [:new]
+    get "/tours/:id/activate", TourInstanceController, :new
   end
 
   scope "/admin", TourGuide do

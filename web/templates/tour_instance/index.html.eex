@@ -30,5 +30,3 @@
 <% end %>
   </tbody>
 </table>
-
-<%= link "New tour instance", to: tour_instance_path(@conn, :new) %>
