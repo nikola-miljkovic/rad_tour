@@ -5,7 +5,7 @@ defmodule TourGuide.TourController do
   alias TourGuide.Tour
   alias TourGuide.TourGuide, as: TourGuideModel
 
-  plug :authenticate_tour_guide when action in [:new, :create, :edit, :update]
+  plug :authenticate_tour_guide when action in [:index, :new, :create, :edit, :update]
   plug :assign_categories when action in [:new, :create, :edit, :update]
 
   def action(conn, _) do
@@ -38,7 +38,7 @@ defmodule TourGuide.TourController do
 
   def edit(conn, %{"id" => id}, user) do
     tour = get_tour(id)
-    changeset = TourGuideModel.changeset(tour)
+    changeset = Tour.changeset(tour)
 
     render(conn, "edit.html", tour: tour, changeset: changeset)
   end

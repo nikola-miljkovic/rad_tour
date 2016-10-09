@@ -19,7 +19,7 @@
       <td><%= tour_instance.time %></td>
       <td><%= tour_instance.capacity %></td>
       <td><%= tour_instance.registred %></td>
-      <td><%= tour_instance.status %></td>
+      <td><%= tour_instance.status_string %></td>
 
       <td class="text-right">
         <%= link "Show", to: tour_instance_path(@conn, :show, tour_instance), class: "btn btn-default btn-xs" %>

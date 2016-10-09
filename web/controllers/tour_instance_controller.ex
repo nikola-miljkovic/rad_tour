@@ -4,12 +4,16 @@ defmodule TourGuide.TourInstanceController do
   alias TourGuide.TourInstance
 
   def index(conn, _params) do
-    tour_instances = Repo.all(TourInstance)
+    tour_instances =
+      Repo.all(TourInstance)
+      |> Enum.map &(TourInstance.load_all_fields &1)
+
     render(conn, "index.html", tour_instances: tour_instances)
   end
 
   def new(conn, _params) do
     changeset = TourInstance.changeset(%TourInstance{})
+
     render(conn, "new.html", changeset: changeset)
   end
 

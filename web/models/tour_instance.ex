@@ -4,11 +4,27 @@ defmodule TourGuide.TourInstance do
   schema "tour_instances" do
     field :time, Ecto.DateTime
     field :capacity, :integer
-    field :registred, :integer
-    field :status, :integer
+    field :registred, :integer, default: 0
+    field :status, :integer, default: 0
     belongs_to :tour, TourGuide.Tour
 
+    # virtuals
+    field :status_string, :integer, virtual: true
+
     timestamps()
+  end
+
+  @status_strings [
+    "Inactive",
+    "Scheduled",
+    "In progress",
+    "Canceled",
+    "Finished"
+  ]
+
+  def load_all_fields(struct) do
+    struct
+    |> Map.put(:status_string, Enum.at(@status_strings, struct.status))
   end
 
   @doc """
@@ -16,7 +32,7 @@ defmodule TourGuide.TourInstance do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:time, :capacity, :registred, :status])
-    |> validate_required([:time, :capacity, :registred, :status])
+    |> cast(params, [:time, :capacity])
+    |> validate_required([:time, :capacity])
   end
 end
