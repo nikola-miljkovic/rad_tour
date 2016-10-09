@@ -6,13 +6,20 @@ defmodule TourGuide.TourInstanceController do
 
   alias TourGuide.TourInstance
 
-  def index(conn, _params) do
+  plug :authenticate_tour_guide when action in [:new, :create, :edit, :update, :delete]
+
+  def action(conn, _) do
+    apply(__MODULE__, action_name(conn),
+      [conn, conn.params, conn.assigns.current_user])
+  end
+
+  def index(conn, _params, _user) do
     tour_instances = get_tour_instances()
 
     render(conn, "index.html", tour_instances: tour_instances)
   end
 
-  def new(conn, %{"id" => id}) do
+  def new(conn, %{"id" => id}, _user) do
     changeset =
       get_tour(id)
       |> build_assoc(:tour_instances)
@@ -21,45 +28,59 @@ defmodule TourGuide.TourInstanceController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"tour_instance" => tour_instance_params}) do
-    changeset = TourInstance.changeset(%TourInstance{}, tour_instance_params)
-
-    case Repo.insert(changeset) do
+  def create(conn, %{"tour_instance" => params}, user) do
+    case create_tour_instance(user, params) do
       {:ok, _tour_instance} ->
         conn
         |> put_flash(:info, "Tour instance created successfully.")
         |> redirect(to: tour_instance_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset, id: changeset.data.tour_id)
+        render(conn, "new.html", changeset: changeset, id: Map.get(params, :tour_id))
+      :blocked ->
+        # create new error page for this
+        conn
+        |> put_flash(:info, "Request blocked!")
+        |> redirect(to: tour_instance_path(conn, :index))
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, _user) do
     tour_instance = Repo.get!(TourInstance, id)
     render(conn, "show.html", tour_instance: tour_instance)
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, %{"id" => id}, user) do
     tour_instance = Repo.get!(TourInstance, id)
-    changeset = TourInstance.changeset(tour_instance)
-    render(conn, "edit.html", tour_instance: tour_instance, changeset: changeset)
+
+    case authorize_owner(user, tour_instance.tour_id) do
+      :passed ->
+        changeset = TourInstance.changeset(tour_instance)
+        render(conn, "edit.html", tour_instance: tour_instance, changeset: changeset)
+      :blocked ->
+        # create new error page for this
+        conn
+        |> put_flash(:info, "Request blocked!")
+        |> redirect(to: tour_instance_path(conn, :index))
+    end
   end
 
-  def update(conn, %{"id" => id, "tour_instance" => tour_instance_params}) do
-    tour_instance = Repo.get!(TourInstance, id)
-    changeset = TourInstance.update_changeset(tour_instance, tour_instance_params)
-
-    case Repo.update(changeset) do
+  def update(conn, %{"id" => id, "tour_instance" => params}, user) do
+    case update_tour_instance(user, id, params) do
       {:ok, tour_instance} ->
         conn
         |> put_flash(:info, "Tour instance updated successfully.")
         |> redirect(to: tour_instance_path(conn, :show, tour_instance))
       {:error, changeset} ->
-        render(conn, "edit.html", tour_instance: tour_instance, changeset: changeset)
+        render(conn, "edit.html", tour_instance: id, changeset: changeset)
+      :blocked ->
+        # create new error page for this
+        conn
+        |> put_flash(:info, "Request blocked!")
+        |> redirect(to: tour_instance_path(conn, :index))
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id}, user) do
     tour_instance = Repo.get!(TourInstance, id)
 
     # Here we use delete! (with a bang) because we expect

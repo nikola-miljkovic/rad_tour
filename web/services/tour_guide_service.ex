@@ -22,7 +22,7 @@ defmodule Services.TourGuide do
 
   def update_tour_guide(tour_guide, params \\ %{}) do
     TourGuideModel.changeset(tour_guide, params)
-    |> Repo.update
+    |> Repo.update()
   end
 
   @doc """
