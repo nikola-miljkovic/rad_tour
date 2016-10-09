@@ -3,6 +3,8 @@ defmodule TourGuide.Auth do
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
   import Phoenix.Controller
 
+  import Ecto.Query
+
   alias TourGuide.Router.Helpers
 
   def init(opts) do
@@ -10,8 +12,13 @@ defmodule TourGuide.Auth do
   end
 
   def call(conn, repo) do
-    user_id = get_session(conn, :user_id)
-    user    = user_id && repo.get(TourGuide.User, user_id)
+    user =
+      case get_session(conn, :user_id) do
+        nil -> nil
+        user_id ->
+          repo.get(TourGuide.User, user_id)
+          |> repo.preload([:tour_guide])
+      end
     assign(conn, :current_user, user)
   end
 
@@ -28,7 +35,11 @@ defmodule TourGuide.Auth do
 
   def login_by_email_and_pass(conn, email, given_pass, opts) do
     repo = Keyword.fetch!(opts, :repo)
-    user = repo.get_by(TourGuide.User, email: email)
+    query = from u in TourGuide.User,
+      select: u,
+      where: u.email == ^email,
+      preload: [:tour_guide]
+    user = repo.one(query)
 
     cond do
       user && checkpw(given_pass, user.password_hashed) ->
@@ -43,6 +54,17 @@ defmodule TourGuide.Auth do
 
   def authenticate_user(conn, _opts) do
     if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: Helpers.page_path(conn, :index))
+      |> halt()
+    end
+  end
+
+  def authenticate_tour_guide(conn, _opts) do
+    if conn.assigns.current_user.tour_guide do
       conn
     else
       conn

@@ -34,6 +34,8 @@ defmodule TourGuide.Web do
       import Ecto
       import Ecto.Query
 
+      import TourGuide.Auth, only: [authenticate_user: 2, authenticate_tour_guide: 2]
+
       import TourGuide.Router.Helpers
       import TourGuide.Gettext
     end
