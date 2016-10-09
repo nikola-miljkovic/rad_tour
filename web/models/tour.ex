@@ -3,7 +3,7 @@ defmodule TourGuide.Tour do
 
   schema "tours" do
     field :title, :string
-    field :rating, :float
+    field :rating, :float, default: 1.0
     field :description, :string
     belongs_to :category, TourGuide.Category
     belongs_to :tour_guide, TourGuide.TourGuide
