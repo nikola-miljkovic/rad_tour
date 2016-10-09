@@ -25,6 +25,15 @@ defmodule TourGuide.Router do
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/guides", TourGuideController, only: [:index, :new, :create, :update]
     get "/guides/edit", TourGuideController, :edit
+
+    resources "/tour", TourController
+    resources "/tours", TourInstanceController
+  end
+
+  scope "/admin", TourGuide do
+    pipe_through :browser # TODO: Add admin checks here!
+
+    resources "/categories", CategoryController
   end
 
   # Other scopes may use custom stacks.

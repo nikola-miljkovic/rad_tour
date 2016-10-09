@@ -3,7 +3,7 @@ defmodule TourGuide.Tour do
 
   schema "tours" do
     field :title, :string
-    field :rating, :float
+    field :rating, :float, default: 1.0
     field :description, :string
     belongs_to :category, TourGuide.Category
     belongs_to :tour_guide, TourGuide.TourGuide
@@ -16,7 +16,9 @@ defmodule TourGuide.Tour do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :rating])
-    |> validate_required([:title, :rating])
+    |> cast(params, [:title, :description, :category_id])
+    |> validate_required([:title])
+    |> validate_length(:title, min: 8, max: 32)
+    |> validate_length(:description, min: 64, max: 256)
   end
 end

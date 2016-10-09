@@ -64,7 +64,7 @@ defmodule TourGuide.Auth do
   end
 
   def authenticate_tour_guide(conn, _opts) do
-    if conn.assigns.current_user.tour_guide do
+    if conn.assigns.current_user && conn.assigns.current_user.tour_guide do
       conn
     else
       conn

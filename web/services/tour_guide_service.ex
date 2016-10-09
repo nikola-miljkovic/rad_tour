@@ -5,11 +5,8 @@ defmodule Services.TourGuide do
     Provides function for creating and editing TourGuide.
   """
 
+  use TourGuide.Web, :service
   alias TourGuide.TourGuide, as: TourGuideModel
-  alias TourGuide.Repo
-
-  import Ecto
-  import Ecto.Query
 
   @doc """
     Attempts to upgrade user to TourGuide.
