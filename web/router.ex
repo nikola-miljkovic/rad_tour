@@ -30,6 +30,12 @@ defmodule TourGuide.Router do
     resources "/tours", TourInstanceController
   end
 
+  scope "/admin", TourGuide do
+    pipe_through :browser # TODO: Add admin checks here!
+
+    resources "/categories", CategoryController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TourGuide do
   #   pipe_through :api
