@@ -1,0 +1,30 @@
+<h2>Hey <%= @current_user.first_name %> Listing Tours</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Category</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for tour <- @tours do %>
+    <tr>
+      <td><%= tour.title %></td>
+      <td><%= tour.rating %></td>
+      <td><%= tour.category.name %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: tour_path(@conn, :show, tour), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: tour_path(@conn, :edit, tour), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: tour_path(@conn, :delete, tour), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "Create new Tour", to: tour_path(@conn, :new) %>

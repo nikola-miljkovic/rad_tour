@@ -1,11 +1,12 @@
 defmodule TourGuide.TourController do
   use TourGuide.Web, :controller
+
   import Services.Tour
 
   alias TourGuide.Tour
   alias TourGuide.TourGuide, as: TourGuideModel
 
-  plug :authenticate_tour_guide when action in [:new, :create, :edit, :update]
+  plug :authenticate_tour_guide when action in [:index, :new, :create, :edit, :update]
   plug :assign_categories when action in [:new, :create, :edit, :update]
 
   def action(conn, _) do
@@ -13,10 +14,16 @@ defmodule TourGuide.TourController do
       [conn, conn.params, conn.assigns.current_user])
   end
 
-  def index(conn, _params, _user) do
-    tour_list = tour_list()
+  def index(conn, _params, user) do
+    tours = tour_list(user.tour_guide)
 
-    render(conn, "index.html", tour_list: tour_list)
+    render(conn, "index.html", tours: tours)
+  end
+
+  def show(conn, %{"id" => id}, user) do
+    tour = get_tour(id)
+
+    render(conn, "show.html", tour: tour)
   end
 
   def new(conn, _params, _user) do
@@ -38,7 +45,7 @@ defmodule TourGuide.TourController do
 
   def edit(conn, %{"id" => id}, user) do
     tour = get_tour(id)
-    changeset = TourGuideModel.changeset(tour)
+    changeset = Tour.changeset(tour)
 
     render(conn, "edit.html", tour: tour, changeset: changeset)
   end
@@ -55,6 +62,7 @@ defmodule TourGuide.TourController do
   end
 
   def assign_categories(conn, _params) do
-    assign(conn, :categories, load_categories())
+    categories = load_categories()
+    assign(conn, :categories, categories)
   end
 end

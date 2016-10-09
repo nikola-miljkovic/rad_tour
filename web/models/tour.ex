@@ -7,6 +7,7 @@ defmodule TourGuide.Tour do
     field :description, :string
     belongs_to :category, TourGuide.Category
     belongs_to :tour_guide, TourGuide.TourGuide
+    has_many :tour_instances, TourGuide.TourInstance
 
     timestamps()
   end

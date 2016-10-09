@@ -1,0 +1,29 @@
+<h2>Showing Tour</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @tour.title %>
+  </li>
+
+  <li>
+    <strong>Rating:</strong>
+    <%= @tour.rating %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @tour.description %>
+  </li>
+
+  <li>
+    <strong>Category:</strong>
+    <%= @tour.category.name %>
+  </li>
+
+</ul>
+
+<%= link "Make active listing", to: tour_instance_path(@conn, :new, @tour.id) %>
+<%= link "Edit", to: tour_path(@conn, :edit, @tour) %>
+<%= link "Back", to: tour_path(@conn, :index) %>
