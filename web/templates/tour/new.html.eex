@@ -1,0 +1,7 @@
+<h2>New Tour</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        categories: @categories,
+                        action: tour_path(@conn, :create) %>
+
+<%= link "Back", to: tour_path(@conn, :index) %>

@@ -13,10 +13,10 @@ defmodule TourGuide.TourController do
       [conn, conn.params, conn.assigns.current_user])
   end
 
-  def index(conn, _params, _user) do
-    tour_list = tour_list()
+  def index(conn, _params, user) do
+    tours = tour_list(user.tour_guide)
 
-    render(conn, "index.html", tour_list: tour_list)
+    render(conn, "index.html", tours: tours)
   end
 
   def new(conn, _params, _user) do
@@ -55,6 +55,7 @@ defmodule TourGuide.TourController do
   end
 
   def assign_categories(conn, _params) do
-    assign(conn, :categories, load_categories())
+    categories = load_categories()
+    assign(conn, :categories, categories)
   end
 end

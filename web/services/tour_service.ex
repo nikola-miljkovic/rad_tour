@@ -16,7 +16,7 @@ defmodule Services.Tour do
   def create_tour(params \\ %{}, tour_guide) do
     changeset =
       tour_guide
-      |> build_assoc(:tour)
+      |> build_assoc(:tours)
       |> Tour.changeset(params)
 
     Repo.insert(changeset)
@@ -33,9 +33,10 @@ defmodule Services.Tour do
     Lists top 10 tours
     TODO: Re-implement this type of function
   """
-  def tour_list() do
+  def tour_list(tour_guide) do
     query = from t in Tour,
-      preload: [:tour_guide, :category],
+      preload: [:category],
+      where: t.tour_guide_id == ^tour_guide.id,
       limit: 10
 
     Repo.all query
