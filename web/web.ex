@@ -60,6 +60,10 @@ defmodule TourGuide.Web do
   def router do
     quote do
       use Phoenix.Router
+
+      import TourGuide.Auth, only: [
+        authenticate_user: 2, authenticate_tour_guide: 2, authenticate_admin: 2
+      ]
     end
   end
 
@@ -77,7 +81,7 @@ defmodule TourGuide.Web do
   def service do
     quote do
       alias TourGuide.Repo
-      
+
       import Ecto
       import Ecto.Query
     end

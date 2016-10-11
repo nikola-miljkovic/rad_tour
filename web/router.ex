@@ -24,16 +24,17 @@ defmodule TourGuide.Router do
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/guides", TourGuideController, only: [:index, :new, :create, :update]
+    # Editing tour guide without :id param(only edit yourself!)
     get "/guides/edit", TourGuideController, :edit
 
-    resources "/tour", TourController
+    resources "/listing", TourController
 
     resources "/tours", TourInstanceController, except: [:new]
     get "/tours/:id/activate", TourInstanceController, :new
   end
 
   scope "/admin", TourGuide do
-    pipe_through :browser # TODO: Add admin checks here!
+    pipe_through [:browser, :authenticate_admin]
 
     resources "/categories", CategoryController
   end

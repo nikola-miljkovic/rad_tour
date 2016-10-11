@@ -73,4 +73,16 @@ defmodule TourGuide.Auth do
       |> halt()
     end
   end
+
+  def authenticate_admin(conn, _opts) do
+    user = conn.assigns.current_user
+    if user && TourGuide.Repo.get_by(TourGuide.Admin, user_id: user.id) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Error.")
+      |> redirect(to: Helpers.page_path(conn, :index))
+      |> halt()
+    end
+  end
 end
