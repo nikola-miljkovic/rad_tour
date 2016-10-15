@@ -21,6 +21,8 @@ defmodule TourGuide.Router do
 
     get "/sign-up", UserController, :new
     post "/sign-up", UserController, :create
+    resources "/users", UserController, only: [:show, :edit]
+
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/guides", TourGuideController, only: [:index, :new, :create, :update]

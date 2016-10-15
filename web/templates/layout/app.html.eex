@@ -9,6 +9,10 @@
 
     <title>Hello TourGuide!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+
+    <meta id="csrf-param-meta-tag" name="csrf-param" content="authenticity_token">
+    <meta id="csrf-token-meta-tag" name="csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token() %>">
+
   </head>
 
   <body>
