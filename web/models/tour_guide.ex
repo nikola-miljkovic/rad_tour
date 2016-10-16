@@ -1,6 +1,8 @@
 defmodule TourGuide.TourGuide do
   use TourGuide.Web, :model
 
+  @derive {Poison.Encoder, only: [:id]}
+
   schema "tour_guides" do
     field :about, :string
     belongs_to :user, TourGuide.User

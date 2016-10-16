@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+      "outDir": "./priv/static/build/js",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "target": "es5",
+      "jsx": "react"
+  },
+  "compileOnSave": true,
+  "include": [
+      "web/static/ts/**/*"
+  ]
+}

@@ -15,4 +15,7 @@ erl_crash.dump
 \db
 erl_crash.dump
 *.ez
-
+/node_modules
+/priv/static/build
+/priv/static/js/*.bundle.js
+/priv/static/js/*.bundle.js.map
