@@ -55,7 +55,7 @@ defmodule TourGuide.TourController do
       {:ok, _tour_guide} ->
         conn
         |> put_flash(:info, "Tour Guide updated successfully.")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: landing_page_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
     end

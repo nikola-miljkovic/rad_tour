@@ -17,7 +17,7 @@ defmodule TourGuide.Router do
   scope "/", TourGuide do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", LandingPageController, :index
 
     get "/sign-up", UserController, :new
     post "/sign-up", UserController, :create

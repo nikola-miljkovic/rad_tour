@@ -6,7 +6,7 @@ export function getContent (name: string) {
   );
 }
 
-
 export function getCRSF () {
     return document.querySelector("meta[name='csrf-token']").getAttribute("content");
 }
+

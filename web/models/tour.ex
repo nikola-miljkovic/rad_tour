@@ -1,6 +1,8 @@
 defmodule TourGuide.Tour do
   use TourGuide.Web, :model
 
+  @derive {Poison.Encoder, only: [:id, :title, :rating, :description, :category_id, :tour_guide]}
+
   schema "tours" do
     field :title, :string
     field :rating, :float, default: 1.0

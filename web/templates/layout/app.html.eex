@@ -9,18 +9,17 @@
 
     <title>Hello TourGuide!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-
-    <meta id="csrf-param-meta-tag" name="csrf-param" content="authenticity_token">
-    <meta id="csrf-token-meta-tag" name="csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token() %>">
     
   </head>
 
   <body>
     <div class="container">
-    
+
+      <meta id="csrf-param-meta-tag" name="csrf-param" content="authenticity_token">
+      <meta id="csrf-token-meta-tag" name="csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token() %>">
       <meta name="_navbarData" content="<%= Poison.encode! @current_user %>"/>
 
-      <div id="header"></div>
+      <div id="header" data-turbolinks-permanent></div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
@@ -31,13 +30,8 @@
 
     </div> <!-- /container -->
 
-    <script src="<%= static_path(@conn, "/js/react.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/react-dom.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/jquery.slim.js") %>"></script>
-
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    
-    <script src="<%= static_path(@conn, "/js/navbar.bundle.js") %>"></script>
+    <script async src="<%= static_path(@conn, "/js/vendor.bundle.js") %>"></script>
+    <script async src="<%= static_path(@conn, "/js/navbar.bundle.js") %>"></script>
 
   </body>
 </html>

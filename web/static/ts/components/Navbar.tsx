@@ -1,14 +1,15 @@
 import * as React from "react";
 
 import { ActionLink } from "./ActionLink";
+import { User } from "../models/User";
 
-export interface  NavbarProps {
-    user: any
+export interface NavbarProps {
+    user?: User
 }
 
 export class Navbar extends React.Component<NavbarProps, {}> {
 
-    getNavbarContent(user: any) {
+    static getNavbarContent(user: any) {
         if (user == null) {
             return (
                 <ol className="breadcrumb text-right">
@@ -25,7 +26,7 @@ export class Navbar extends React.Component<NavbarProps, {}> {
                             Log Out
                         </ActionLink>
                     </li>
-                    { 
+                    {
                         user.tour_guide != null ?
                         (<li>
                             <a href="/guides/edit">Edit Tour Guide Profile</a>
@@ -40,12 +41,12 @@ export class Navbar extends React.Component<NavbarProps, {}> {
     
     render() {
         let user = this.props.user;
-        let navbarContent = this.getNavbarContent(user);
+        let navbarContent = Navbar.getNavbarContent(user);
         
         return (
             <div className="header">
                 {navbarContent}
-                <span className="logo"></span>
+                <span className="logo"/>
             </div>
         );
     }

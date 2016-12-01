@@ -3,10 +3,13 @@ import * as ReactDOM from "react-dom";
 
 import { getContent } from "./helpers";
 import { Navbar } from "./components/Navbar";
+import { User } from "./models/User";
 
-var navbarData = getContent('_navbarData');
+document.addEventListener('turbolinks:load', function () {
+    let user = getContent('_navbarData') as User;
 
-ReactDOM.render(
-    <Navbar user={navbarData} />,
-    document.getElementById("header")
-)
+    ReactDOM.render(
+        <Navbar user={user}/>,
+        document.getElementById("header")
+    )
+});

@@ -58,7 +58,7 @@ defmodule TourGuide.Auth do
     else
       conn
       |> put_flash(:error, "You must be logged in to access that page")
-      |> redirect(to: Helpers.page_path(conn, :index))
+      |> redirect(to: Helpers.landing_page_path(conn, :index))
       |> halt()
     end
   end
@@ -69,7 +69,7 @@ defmodule TourGuide.Auth do
     else
       conn
       |> put_flash(:error, "You must be logged in to access that page")
-      |> redirect(to: Helpers.page_path(conn, :index))
+      |> redirect(to: Helpers.landing_page_path(conn, :index))
       |> halt()
     end
   end
@@ -81,7 +81,7 @@ defmodule TourGuide.Auth do
     else
       conn
       |> put_flash(:error, "Error.")
-      |> redirect(to: Helpers.page_path(conn, :index))
+      |> redirect(to: Helpers.landing_page_path(conn, :index))
       |> halt()
     end
   end
