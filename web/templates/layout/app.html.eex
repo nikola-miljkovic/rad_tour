@@ -30,8 +30,13 @@
 
     </div> <!-- /container -->
 
-    <script async src="<%= static_path(@conn, "/js/vendor.bundle.js") %>"></script>
-    <script async src="<%= static_path(@conn, "/js/navbar.bundle.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/phoenix.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/react.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/react-dom.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/turbolinks.js") %>"></script>
+
+    <script src="<%= static_path(@conn, "/js/navbar.bundle.js") %>"></script>
 
   </body>
 </html>

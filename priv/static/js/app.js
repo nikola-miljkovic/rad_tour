@@ -17,10 +17,10 @@ window.addEventListener("load", function () {
         var message = this.getAttribute("data-confirm");
         if (message === null || confirm(message)) {
           this.parentNode.submit();
-        }
+        };
         event.preventDefault();
         return false;
       }, false);
-    }
+    };
   })
 });

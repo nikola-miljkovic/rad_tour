@@ -6,13 +6,13 @@ var plugins = [
     new WebpackShellPlugin({
         onBuildEnd: ['rm -rf web/static/**.js && rm -rf web/static/**.js.map']
     }),
-    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
-]
+    //new webpack.optimize.CommonsChunkPlugin("vendor", "priv/static/js/vendor.bundle.js")
+];
 
 module.exports = {
     entry: {
         navbar: "./web/static/ts/navbar.tsx",
-        vendor: glob.sync("./priv/static/lib/*.js")
+        //vendor: glob.sync("./priv/static/lib/*.js")
     },
     output: {
         filename: "./priv/static/js/[name].bundle.js",
@@ -46,5 +46,5 @@ module.exports = {
         "react": "React",
         "react-dom": "ReactDOM",
         "turbolinks": "turbolinks"
-    },
+    }
 };
