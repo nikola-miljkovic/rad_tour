@@ -14,6 +14,8 @@ config :tour_guide, TourGuide.Endpoint,
   watchers: [node: ["node_modules/webpack/bin/webpack.js", "--watch",
                     cd: Path.expand("../", __DIR__)]]
 
+#elastic search config, TODO: Config!
+config :tirexs, :uri, "http://127.0.0.1:9200"
 
 # Watch static and templates for browser reloading.
 config :tour_guide, TourGuide.Endpoint,
