@@ -49,14 +49,20 @@
     "webpack-shell-plugin": "^0.4.3"
   },
   "dependencies": {
-    "@types/immutable": "^3.8.4",
+    "@types/ramda": "0.0.2",
     "@types/react": "^0.14.52",
     "@types/react-dom": "^0.14.19",
+    "@types/react-redux": "^4.4.35",
+    "@types/redux": "^3.6.0",
+    "@types/redux-actions": "^0.8.34",
     "@types/superagent": "^2.0.35",
-    "immutable": "^3.8.1",
     "node-sass": "^3.13.0",
+    "ramda": "^0.22.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0",
+    "redux-actions": "^1.1.0",
     "superagent": "^2.3.0",
     "turbolinks": "^5.0.0"
   }

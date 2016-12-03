@@ -1,12 +1,12 @@
 defmodule TourGuide.TourInstance do
   use TourGuide.Web, :model
 
-  @derive {Poison.Encoder, only: [:id, :time, :capacity, :registred, :status, :tour]}
+  @derive {Poison.Encoder, only: [:id, :time, :capacity, :registered, :status, :tour]}
 
   schema "tour_instances" do
     field :time, Ecto.DateTime
     field :capacity, :integer
-    field :registred, :integer, default: 0
+    field :registered, :integer, default: 0
     field :status, :integer, default: 0
     belongs_to :tour, TourGuide.Tour
 

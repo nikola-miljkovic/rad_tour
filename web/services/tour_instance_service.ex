@@ -14,13 +14,15 @@ defmodule Services.TourInstance do
   alias TourGuide.ES
 
   import Tirexs.HTTP
+  import Tirexs.Search
 
   defp create_es_tour_instance({tour_instance, tour, user, tour_guide}) do
     %ES.TourInstance{
         id: tour_instance.id,
         time: tour_instance.time,
         capacity: tour_instance.capacity,
-        registred: tour_instance.status,
+        registered: tour_instance.registered,
+        status: tour_instance.status,
         tour_id: tour.id,
         title: tour.title,
         rating: tour.rating,
@@ -54,10 +56,7 @@ defmodule Services.TourInstance do
         where: ti.id == ^params.id
 
     tour_instance = create_es_tour_instance(Repo.one query)
-    case put("/tour_guide/listing/1", Map.from_struct(tour_instance)) do
-      :error ->
-        IO.inspect :error
-    end
+    put("/tour_guide/listing/1", Map.from_struct(tour_instance))
   end
 
   def create_tour_instance(user, params \\ %{}) do
@@ -96,12 +95,17 @@ defmodule Services.TourInstance do
   end
 
   def get_tour_instance_listing() do
-    #query = from ti in TourInstance,
-    #  preload: [:tour, {:tour, [{:tour_guide, :user}]}],
-    #  limit: 12
+    #query = search [index: "tour_guide"] do
+    #  query do
+    #    match "name", "jane"
+    #  end
+    #end
 
-    #a = Repo.all(query)
-    #IO.inspect a
-    #a
+    #Tirexs.Query.create_resource(query)
+
+    case get("/tour_guide/listing/_search") do
+      {:ok, _, %{_shards: _, hits: %{hits: hits} }} ->
+        IO.inspect Enum.map(hits, fn(hit) -> hit._source end)
+    end
   end
 end

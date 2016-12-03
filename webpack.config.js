@@ -45,6 +45,7 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
-        "turbolinks": "turbolinks"
+        "turbolinks": "turbolinks",
+        "immutable": "immutable"
     }
 };

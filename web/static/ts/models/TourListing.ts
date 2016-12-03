@@ -1,0 +1,15 @@
+export interface TourListing {
+    id: number,
+    time: Date,
+    capacity: number,
+    registered: number,
+    status: number,
+    tour_id: number,
+    title: string,
+    rating: number,
+    description: string,
+    category_id: number,
+    tour_guide_id: number,
+    tour_guide_first_name: string,
+    tour_guide_last_name: string,
+}

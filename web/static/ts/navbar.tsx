@@ -1,15 +1,20 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-import { getContent } from "./helpers";
-import { Navbar } from "./components/Navbar";
-import { User } from "./models/User";
+import { Provider } from 'react-redux'
+import store from "./store";
+import Navbar from "./components/Navbar";
 
 document.addEventListener('turbolinks:load', function () {
-    let user = getContent('_navbarData') as User;
+
+    const App: React.StatelessComponent<any> = () => (
+        <Provider store={store}>
+            <Navbar />
+        </Provider>
+    );
 
     ReactDOM.render(
-        <Navbar user={user}/>,
+        <App />,
         document.getElementById("header")
     )
+
 });

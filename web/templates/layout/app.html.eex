@@ -17,7 +17,7 @@
 
       <meta id="csrf-param-meta-tag" name="csrf-param" content="authenticity_token">
       <meta id="csrf-token-meta-tag" name="csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token() %>">
-      <meta name="_navbarData" content="<%= Poison.encode! @current_user %>"/>
+      <meta name="_userData" content="<%= Poison.encode! @current_user %>"/>
 
       <div id="header" data-turbolinks-permanent></div>
 
@@ -32,8 +32,10 @@
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/phoenix.js") %>"></script>
+
     <script src="<%= static_path(@conn, "/js/react.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/react-dom.js") %>"></script>
+
     <script src="<%= static_path(@conn, "/js/turbolinks.js") %>"></script>
 
     <script src="<%= static_path(@conn, "/js/navbar.bundle.js") %>"></script>

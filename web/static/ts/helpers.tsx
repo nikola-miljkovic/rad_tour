@@ -1,9 +1,14 @@
 // helpers
 // read meta tag content
-export function getContent (name: string) {
-  return JSON.parse(
-    document.querySelector("meta[name='" + name + "']").getAttribute("content")
-  );
+export function getContent<T>(name: string): T {
+    let doc = document.querySelector("meta[name='" + name + "']");
+    if (doc == undefined) {
+        return null;
+    } else {
+        return JSON.parse(
+            doc.getAttribute("content")
+        ) as T;
+    }
 }
 
 export function getCRSF () {
