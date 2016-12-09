@@ -6,15 +6,19 @@ import Navbar from "./components/Navbar";
 
 document.addEventListener('turbolinks:load', function () {
 
-    const App: React.StatelessComponent<any> = () => (
+    ReactDOM.render(
         <Provider store={store}>
             <Navbar />
-        </Provider>
+        </Provider>,
+        document.getElementById("navbar")
     );
 
-    ReactDOM.render(
-        <App />,
-        document.getElementById("header")
-    )
-
+    if (store.getState().tourListing != null) {
+        ReactDOM.render(
+            <Provider store={store}>
+                <TourListing />
+            </Provider>,
+            document.getElementById("tourListing")
+        );
+    }
 });

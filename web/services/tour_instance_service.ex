@@ -37,9 +37,10 @@ defmodule Services.TourInstance do
   # inserts tour instance into ecto and elastic
   defp insert_tour_instance(params \\ %{}) do
     case params |> Repo.insert(preload: [:tour]) do
-        {:ok, tour_instance} ->
-            tour_instance
-            |> insert_tour_instance_elastic()
+        {:ok, tour_instance} = response ->
+            #elastic search service insert
+            insert_tour_instance_elastic(tour_instance)
+            response
         {:error, changeset} ->
             changeset
     end
@@ -55,8 +56,11 @@ defmodule Services.TourInstance do
         select: {ti, t, u, tg},
         where: ti.id == ^params.id
 
-    tour_instance = create_es_tour_instance(Repo.one query)
-    put("/tour_guide/listing/1", Map.from_struct(tour_instance))
+    tour_instance =
+        create_es_tour_instance(Repo.one query)
+        |> Map.from_struct()
+
+    put("/tour_guide/listing/#{tour_instance.id}", tour_instance)
   end
 
   def create_tour_instance(user, params \\ %{}) do

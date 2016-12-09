@@ -1,1 +1,3 @@
-<meta name="_tourListingData" id="_tourInstanceListing" content="<%= Poison.encode! @tour_instance_listing %>"/>
+<meta name="_tourListingData" content="<%= Poison.encode! @tour_instance_listing %>"/>
+
+<div id="tourListing"></div>

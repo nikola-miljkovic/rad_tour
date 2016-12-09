@@ -18,8 +18,8 @@
   </li>
 
   <li>
-    <strong>Registred:</strong>
-    <%= @tour_instance.registred %>
+    <strong>Registered:</strong>
+    <%= @tour_instance.registered %>
   </li>
 
   <li>

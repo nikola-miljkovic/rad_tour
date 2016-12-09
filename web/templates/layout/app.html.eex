@@ -19,7 +19,7 @@
       <meta id="csrf-token-meta-tag" name="csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token() %>">
       <meta name="_userData" content="<%= Poison.encode! @current_user %>"/>
 
-      <div id="header" data-turbolinks-permanent></div>
+      <div id="navbar" data-turbolinks-permanent></div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

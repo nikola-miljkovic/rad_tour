@@ -36,6 +36,8 @@ defmodule TourGuide.TourInstance do
     struct
     |> cast(params, [:time, :capacity, :tour_id])
     |> validate_required([:time, :capacity, :tour_id])
+    |> put_change(:status, 1)
+    |> put_change(:registered, 0)
   end
 
   def update_changeset(struct, params \\ %{}) do
